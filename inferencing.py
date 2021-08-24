@@ -11,11 +11,18 @@ OUTPUT_TEXTFILE_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Üb
 # defining the api-endpoint
 BASE_URL = "http://d5d2-46-114-139-115.ngrok.io/engines/completions"
 
-# most params are not used yet!
+def drop_incomplete_last_sentences(text):
+        sentence_end_sign = ['.', ';', '?', '!', '/n']
+        last_sentence_end = max(text.rfind('.'), text.rfind('?'), text.rfind('!'), text.rfind('/n'), text.rfind(';'))
+        if last_sentence_end > 0:
+                text = text[0:last_sentence_end + 1]
+        return text
+
+
 def inference(input):
         encoded_input = urllib.parse.quote(input, safe='')
 
-        params = "?prompt=" + encoded_input + "&max_tokens=128&temperature=0.8&top_p=0.9&top_k=40&n=1&stream=false&echo=false&presence_penalty=0.0001&repetition_penalty=1&best_of=1&recursive_depth=0&recursive_refresh=0"
+        params = "?prompt=" + encoded_input + "&max_tokens=200&temperature=0.8&top_p=0.9&top_k=40&n=1&stream=false&echo=false&presence_penalty=0.0001&repetition_penalty=1&best_of=1&recursive_depth=0&recursive_refresh=0"
 
         # headers
         headers = {
@@ -31,4 +38,5 @@ def inference(input):
         choice = response['choices'][0] # there is only one result
         #print(choice)
         generated_text = choice['text'][len(choice['prompt']):]
-        return generated_text
+        generated_full_sentences = drop_incomplete_last_sentences(generated_text)
+        return generated_full_sentences
