@@ -3,7 +3,7 @@ import six
 from google.cloud import translate_v2 as translate
 from html import unescape
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'aqueous-timer-323814-bc940f9d191f.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'../aqueous-timer-323814-bc940f9d191f.json'
 
 def translate_text(text, target_language):
     """Translates text into the target language.
@@ -19,6 +19,6 @@ def translate_text(text, target_language):
     # Text can also be a sequence of strings, in which case this method
     # will return a sequence of results for each text.
     translate_client = translate.Client()
-    result = translate_client.translate(text, target_language=target_language)
+    result = translate_client.translate(text, target_language=target_language, format_="text")
 
     return result["translatedText"]
