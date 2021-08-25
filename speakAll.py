@@ -1,11 +1,11 @@
 import os
 import translate
 import text2speech
+import configuration
 
 
-RUN_NUMBER = '01'
-TEXTFILE_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Übersicht/Texte für ArtPilot/generated/' + RUN_NUMBER + "/"
-OUTPUT_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Übersicht/Texte für ArtPilot/gesprochen/' + RUN_NUMBER + "/"
+TEXTFILE_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Übersicht/Texte für ArtPilot/generated-translated/' + configuration.RUN_NUMBER + "/"
+OUTPUT_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Übersicht/Texte für ArtPilot/gesprochen/' + configuration.RUN_NUMBER + "/"
 
 for filename in os.listdir(TEXTFILE_FOLDER):
     if filename.endswith(".txt"): 
