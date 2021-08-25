@@ -4,20 +4,15 @@ import urllib
 import json
 import os
   
-RUN_NUMBER = '01'
-INPUT_TEXTFILE_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Übersicht/Texte für ArtPilot/textformat-en/'
-OUTPUT_TEXTFILE_FOLDER = '/Users/jan/Nextcloud/Art-Pilot/Ausstellungsplanung Übersicht/Texte für ArtPilot/generated/' + RUN_NUMBER + "/"
-
 # defining the api-endpoint
-BASE_URL = "http://d5d2-46-114-139-115.ngrok.io/engines/completions"
+BASE_URL = "http://192.168.100.192:9995/engines/completions"
 
 def drop_incomplete_last_sentences(text):
-        sentence_end_sign = ['.', ';', '?', '!', '/n']
+        sentence_end_sign = ['.', ';', '?', '!']
         last_sentence_end = max(text.rfind('.'), text.rfind('?'), text.rfind('!'), text.rfind('/n'), text.rfind(';'))
         if last_sentence_end > 0:
                 text = text[0:last_sentence_end + 1]
         return text
-
 
 def inference(input):
         encoded_input = urllib.parse.quote(input, safe='')
@@ -39,4 +34,4 @@ def inference(input):
         #print(choice)
         generated_text = choice['text'][len(choice['prompt']):]
         generated_full_sentences = drop_incomplete_last_sentences(generated_text)
-        return generated_full_sentences
+        return (generated_full_sentences, response)
