@@ -5,7 +5,7 @@ import configuration
 from html import unescape
 import argparse
 
-parser = argparse.ArgumentParser(description='Translite a file and write the translation into another file')
+parser = argparse.ArgumentParser(description='Translate a file and write the translation into another file')
 parser.add_argument('inputfolder_name', help='name of the folder with the input files')
 parser.add_argument('outputfolder_name', help='name of the folder where the output files will be written to')
 parser.add_argument('language', help='the output language in ISO format')
@@ -13,8 +13,8 @@ parser.add_argument('subfolder_name', help='name of the output subfolder to crea
 
 args = parser.parse_args()
 
-ORIGINAL_TEXTFILE_FOLDER = os.path.join(args.inputfolder_name,args.subfolder_name)
-OUTPUT_TEXTFILE_FOLDER = os.path.join(args.outputfolder_name,args.subfolder_name)
+ORIGINAL_TEXTFILE_FOLDER = os.path.join(args.inputfolder_name, args.subfolder_name)
+OUTPUT_TEXTFILE_FOLDER = os.path.join(args.outputfolder_name, args.subfolder_name)
 pathlib.Path(OUTPUT_TEXTFILE_FOLDER).mkdir(parents=True, exist_ok=True)
 
 for filename in os.listdir(ORIGINAL_TEXTFILE_FOLDER):
