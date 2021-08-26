@@ -14,10 +14,10 @@ def drop_incomplete_last_sentences(text):
                 text = text[0:last_sentence_end + 1]
         return text
 
-def inference(input):
+def inference(input, max_tokens, temperature, top_p):
         encoded_input = urllib.parse.quote(input, safe='')
 
-        params = "?prompt=" + encoded_input + "&max_tokens=200&temperature=0.8&top_p=0.9&top_k=40&n=1&stream=false&echo=false&presence_penalty=0.0001&repetition_penalty=1&best_of=1&recursive_depth=0&recursive_refresh=0"
+        params = "?prompt=" + encoded_input + "&max_tokens=" + str(max_tokens) + "&temperature=" + str(temperature) + "&top_p=" + str(top_p) + "&top_k=40&n=1&stream=false&echo=false&presence_penalty=0.0001&repetition_penalty=1&best_of=1&recursive_depth=0&recursive_refresh=0"
 
         # headers
         headers = {
@@ -31,7 +31,6 @@ def inference(input):
         # extracting response text 
         response = r.json()
         choice = response['choices'][0] # there is only one result
-        #print(choice)
         generated_text = choice['text'][len(choice['prompt']):]
         generated_full_sentences = drop_incomplete_last_sentences(generated_text)
         return (generated_full_sentences, response)
