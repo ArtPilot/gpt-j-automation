@@ -7,7 +7,7 @@ import json
 import os
   
 # defining the api-endpoint
-BASE_URL = "http://192.168.100.192:9995/engines/completions"
+BASE_URL = "http://a14a-46-114-142-112.ngrok.io/engines/completions"
 
 def drop_incomplete_last_sentences(text):
         sentence_end_sign = ['.', ';', '?', '!']
@@ -70,7 +70,6 @@ if __name__ == "__main__":
     parser.add_argument('--temperature', type=float, default=0.8, help='defaults to 0.8')
     parser.add_argument('--top_p', type=float, default=0.9, help='defaults to 0.9')
     parser.add_argument('subfolder_name', help='name of the output subfolder to create')
-
     args = parser.parse_args()
     input_folder = args.inputfolder_name
     output_folder = os.path.join(args.outputfolder_name, args.subfolder_name)
